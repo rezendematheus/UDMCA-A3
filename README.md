@@ -1,6 +1,6 @@
 # UDMCA-A3
 
-###Alunos:
+## Alunos:
 
 ### João Raimundo Barreto Neto RA: 824211099
 ### Lucas Ferreira dos Santos RA: 823123953

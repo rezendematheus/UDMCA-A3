@@ -24,21 +24,21 @@ let templateCard = `
 `
 
 let template = Handlebars.compile(templateCard);
+let elem = document.getElementById("ProductsList")
 
 async function lerDados() {
     let response = await fetch('https://dummyjson.com/products?limit=25')
     //console.log("response", response);
     let data = await response.json()
-    console.log("data", data)
+    //console.log("data", data)
 
     let contentHtml = ""
     for (let idx in data.products) {
         let product = data.products[idx]
-        console.log(product);
+        // console.log(product);
         contentHtml = contentHtml + template(product);
     }
     //console.log(contentHtml);
-    let elem = document.getElementById("UsersList")
     //console.log(elem);
     elem.innerHTML = contentHtml
 }
@@ -51,4 +51,19 @@ async function lerProdutos() {
 }
 
 lerDados()
-lerProdutos()
+// lerProdutos()
+
+const inputBusca = document.getElementById("search-input")
+console.log(inputBusca)
+inputBusca.addEventListener('input', (event) => {
+    const userText = event.target.value;
+    console.log(userText);
+    
+
+    console.log(elem);
+    
+    // Update the UI or fall back to default text if empty
+});
+
+
+

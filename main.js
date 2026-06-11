@@ -1,5 +1,5 @@
 let templateCard = `
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 border p-4">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 border p-4 produto">
             <div class="card">
                 <img src="{{thumbnail}}" class="card-img-top" alt="" style="max-height: 100px;">
                 <div class="card-body" style="min-height: 160px;">
@@ -24,14 +24,14 @@ let templateCard = `
 `
 
 let template = Handlebars.compile(templateCard);
-let elem = document.getElementById("ProductsList")
+
 
 async function lerDados() {
     let response = await fetch('https://dummyjson.com/products?limit=25')
     //console.log("response", response);
     let data = await response.json()
     //console.log("data", data)
-
+    let elem = document.getElementById("ProductsList")
     let contentHtml = ""
     for (let idx in data.products) {
         let product = data.products[idx]
@@ -56,11 +56,21 @@ lerDados()
 const inputBusca = document.getElementById("search-input")
 console.log(inputBusca)
 inputBusca.addEventListener('input', (event) => {
-    const userText = event.target.value;
-    console.log(userText);
+    let listaProdutos = document.querySelectorAll(".produto")
+    const userText = event.target.value.toLocaleLowerCase().trim();
     
+    listaProdutos.forEach(produto => {
+        const textoProduto = produto.textContent.toLocaleLowerCase();
+        
+        if (!textoProduto.includes(userText)){
+            produto.classList.add('collapse');
+        } else {
+            produto.classList.remove('collapse');
+        }
+    })
 
-    console.log(elem);
+    console.log(listaProdutos);
+    
     
     // Update the UI or fall back to default text if empty
 });

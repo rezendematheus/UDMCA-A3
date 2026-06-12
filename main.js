@@ -28,15 +28,18 @@ let template = Handlebars.compile(templateCard);
 
 // Coleta dos dados da API
 async function lerProdutos() {
-    let response = await fetch('https://dummyjson.com/products?limit=25')
-    //console.log("response", response);
-    let data = await response.json()
-    //console.log("data", data)
     let elem = document.getElementById("ProductsList")
     let contentHtml = ""
     const favoritadosNoStorage = JSON.parse(localStorage.getItem('favoritos')) || [];
-    for (let idx in data.products) {
-        let product = data.products[idx]
+    try {
+        let response = await fetch('https://dummyjson.com/products?limit=25')
+        let data = await response.json()
+        produtos = data.products;
+    } catch (error) {
+        produtos = favoritadosNoStorage;
+    }
+    for (let idx in produtos) {
+        let product = produtos[idx]
         let achouFavorito = false;
         for (let f = 0; f < favoritadosNoStorage.length; f++) {
             if (String(favoritadosNoStorage[f].id) === String(product.id)) {
